@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import TodoItem from "./TodoItem";
-import { fetchTodos } from "./store";
+import { fetchTodos, getTodos } from "./store";
 
 class TodoList extends React.Component {
   componentDidMount() {
@@ -23,7 +23,7 @@ class TodoList extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  todos: state.todos,
+  todos: getTodos(state),
   fetchStatus: state.fetchStatus
 });
 
