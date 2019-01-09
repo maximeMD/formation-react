@@ -1,10 +1,33 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import * as serviceWorker from "./serviceWorker";
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import TodoList from "./TodoList";
+import AddTodo from "./AddTodo";
+import rootReducer from "./store";
+import thunkMiddleware from "redux-thunk";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+function Header() {
+  return <h1>Todo List</h1>;
+}
+
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+
+class Main extends React.Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <Header />
+        <TodoList />
+        <AddTodo />
+      </Provider>
+    );
+  }
+}
+
+ReactDOM.render(<Main />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
