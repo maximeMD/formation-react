@@ -8,8 +8,8 @@ class TodoItem extends React.Component {
     this.ref = React.createRef();
   }
   handleChange = () => {
-    const { done, id } = this.props;
-    this.props.onTodoCheck(!done, id);
+    const { completed, id } = this.props;
+    this.props.onTodoCheck(!completed, id);
   };
   componentDidUpdate() {
     this.ref.current.style.border = "1px solid red";
@@ -22,17 +22,17 @@ class TodoItem extends React.Component {
       <p ref={this.ref}>
         <input
           type="checkbox"
-          checked={this.props.done}
+          checked={this.props.completed}
           onChange={this.handleChange}
         />
-        <label>{this.props.label}</label>
+        <label>{this.props.title}</label>
       </p>
     );
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  onTodoCheck: (done, id) => dispatch(toggleTodo(id, done))
+  onTodoCheck: (completed, id) => dispatch(toggleTodo(id, completed))
 });
 
 const ConnectedTodoItem = connect(
