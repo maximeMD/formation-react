@@ -8,7 +8,10 @@ class TodoList extends React.Component {
     this.props.fetchTodos();
   }
   render() {
-    const { todos } = this.props;
+    const { todos, fetchStatus } = this.props;
+    if (fetchStatus !== "loaded") {
+      return <h2>Imagine a beautiful spinner here :D</h2>;
+    }
     return (
       <>
         {todos.map((todo, idx) => (
@@ -20,7 +23,8 @@ class TodoList extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  todos: state
+  todos: state.todos,
+  fetchStatus: state.fetchStatus
 });
 
 const mapDispatchToProps = dispatch => ({

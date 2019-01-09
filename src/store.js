@@ -1,3 +1,5 @@
+import { combineReducers } from "../../../../AppData/Local/Microsoft/TypeScript/3.2/node_modules/redux";
+
 let COUNTER = 4;
 
 // var TODO_LIST_CONTENT = [
@@ -48,7 +50,7 @@ export function toggleTodo(id, completed) {
   };
 }
 
-export default function rootReducer(state = [], action) {
+export function todosReducer(state = [], action) {
   switch (action.type) {
     case FETCH_TODOS_SUCCESS:
       return action.data;
@@ -66,3 +68,22 @@ export default function rootReducer(state = [], action) {
       return state;
   }
 }
+
+function fetchStatusReducer(state = null, action) {
+  switch (action.type) {
+    case FETCH_TODOS:
+      return "loading";
+    case FETCH_TODOS_SUCCESS:
+      return "loaded";
+    case FETCH_TODOS_FAILURE:
+      return "error";
+    default:
+      return state;
+  }
+}
+
+const rootReducer = combineReducers({
+  fetchStatus: fetchStatusReducer,
+  todos: todosReducer
+});
+export default rootReducer;
